@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6f2">
+    <title>Task Organizer</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">A little more focused</p>
+          <h1>Task organizer</h1>
+          <p class="intro">Keep the important things moving.</p>
+        </div>
+        <div class="header-mark" aria-hidden="true">✓</div>
+      </header>
+
+      <section class="workspace" aria-label="Tasks">
+        <section class="panel form-panel" aria-labelledby="form-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Make a plan</p>
+              <h2 id="form-heading">Add a task</h2>
+            </div>
+          </div>
+          <p id="form-error" class="message error-message" role="alert" hidden></p>
+          <form id="task-form">
+            <label for="title">Title <span aria-hidden="true">*</span></label>
+            <input id="title" name="title" type="text" maxlength="120" required
+                   autocomplete="off" placeholder="What needs doing?">
+
+            <label for="description">Description <span class="optional">Optional</span></label>
+            <textarea id="description" name="description" maxlength="2000" rows="3"
+                      placeholder="Add a few details"></textarea>
+
+            <div class="form-row">
+              <div>
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority" required>
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              <div>
+                <label for="due-date">Due date <span class="optional">Optional</span></label>
+                <input id="due-date" name="due_date" type="date">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button id="submit-button" class="button primary" type="submit">Add task</button>
+              <button id="cancel-edit" class="button quiet" type="button" hidden>Cancel</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel task-panel" aria-labelledby="tasks-heading">
+          <div class="section-heading task-heading">
+            <div>
+              <p class="eyebrow">Your list</p>
+              <h2 id="tasks-heading">Tasks <span id="task-count" class="count"></span></h2>
+            </div>
+            <div class="controls">
+              <label class="sr-only" for="status-filter">Filter tasks</label>
+              <select id="status-filter">
+                <option value="all">All tasks</option>
+                <option value="open">Open</option>
+                <option value="completed">Completed</option>
+              </select>
+              <label class="sr-only" for="sort-order">Sort tasks</label>
+              <select id="sort-order">
+                <option value="">Oldest first</option>
+                <option value="due_date">Due date</option>
+                <option value="priority">Priority</option>
+              </select>
+            </div>
+          </div>
+          <p id="list-message" class="message" role="status" aria-live="polite">Loading tasks…</p>
+          <ul id="task-list" class="task-list" aria-label="Task list"></ul>
+        </section>
+      </section>
+      <footer>One step at a time.</footer>
+    </main>
+  </body>
+</html>

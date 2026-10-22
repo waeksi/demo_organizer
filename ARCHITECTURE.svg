@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title description">
+  <title id="title">Task Organizer architecture</title>
+  <desc id="description">The browser UI sends requests to FastAPI, which validates and routes them through a task service and repository to SQLite. The app initializes the database at startup, while tests use an isolated temporary database.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#587565"/>
+    </marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #25352c; }
+      .heading { font-size: 29px; font-weight: 700; }
+      .subtitle { font-size: 15px; fill: #69776e; }
+      .card { stroke-width: 1.5; rx: 16; }
+      .browser { fill: #edf5ee; stroke: #b6d0bc; }
+      .api { fill: #eef4f8; stroke: #c0d2df; }
+      .logic { fill: #f3f0f8; stroke: #d0c6df; }
+      .data { fill: #edf5ee; stroke: #b6d0bc; }
+      .card-title { font-size: 17px; font-weight: 700; text-anchor: middle; }
+      .card-detail { font-size: 13px; fill: #637168; text-anchor: middle; }
+      .arrow { stroke: #587565; stroke-width: 2.2; marker-end: url(#arrow); }
+      .support { fill: #f6f8f5; stroke: #dce5dc; stroke-width: 1.4; rx: 14; }
+      .support-title { font-size: 14px; font-weight: 700; }
+      .support-text { font-size: 13px; fill: #617067; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="620" fill="#fbfcfa"/>
+  <text x="52" y="60" class="heading">Task Organizer</text>
+  <text x="52" y="88" class="subtitle">Application architecture</text>
+
+  <rect x="42" y="180" width="190" height="145" class="card browser"/>
+  <text x="137" y="231" class="card-title">Browser UI</text>
+  <text x="137" y="260" class="card-detail">HTML · CSS · JavaScript</text>
+  <text x="137" y="286" class="card-detail">app/static/</text>
+
+  <rect x="282" y="180" width="190" height="145" class="card api"/>
+  <text x="377" y="231" class="card-title">FastAPI</text>
+  <text x="377" y="260" class="card-detail">Routes · validation</text>
+  <text x="377" y="286" class="card-detail">routes.py · schemas.py</text>
+
+  <rect x="522" y="180" width="190" height="145" class="card logic"/>
+  <text x="617" y="231" class="card-title">Task service</text>
+  <text x="617" y="260" class="card-detail">Coordinates operations</text>
+  <text x="617" y="286" class="card-detail">services.py</text>
+
+  <rect x="762" y="180" width="190" height="145" class="card data"/>
+  <text x="857" y="231" class="card-title">Repository</text>
+  <text x="857" y="260" class="card-detail">SQL · filtering · sorting</text>
+  <text x="857" y="286" class="card-detail">repository.py</text>
+
+  <rect x="1002" y="180" width="156" height="145" class="card api"/>
+  <text x="1080" y="231" class="card-title">SQLite</text>
+  <text x="1080" y="260" class="card-detail">tasks table</text>
+  <text x="1080" y="286" class="card-detail">database.py</text>
+
+  <line x1="238" y1="252" x2="270" y2="252" class="arrow"/>
+  <line x1="478" y1="252" x2="510" y2="252" class="arrow"/>
+  <line x1="718" y1="252" x2="750" y2="252" class="arrow"/>
+  <line x1="958" y1="252" x2="990" y2="252" class="arrow"/>
+
+  <rect x="102" y="400" width="470" height="126" class="support"/>
+  <text x="128" y="438" class="support-title">App startup</text>
+  <text x="128" y="469" class="support-text">Initializes the database and wires up the service.</text>
+  <text x="128" y="495" class="support-text">Database path can be configured.</text>
+
+  <rect x="628" y="400" width="470" height="126" class="support"/>
+  <text x="654" y="438" class="support-title">Automated tests</text>
+  <text x="654" y="469" class="support-text">pytest + FastAPI TestClient exercise the API.</text>
+  <text x="654" y="495" class="support-text">Each test gets its own temporary SQLite database.</text>
+
+  <text x="52" y="578" class="subtitle">Request flows left to right; responses return to the browser.</text>
+</svg>
