@@ -183,5 +183,6 @@ def test_ui_and_static_assets_are_served(client: TestClient) -> None:
     page = client.get("/")
     assert page.status_code == 200
     assert "Task organizer" in page.text
+    assert 'id="theme-toggle"' in page.text and 'role="switch"' in page.text
     assert client.get("/static/styles.css").status_code == 200
     assert client.get("/static/app.js").status_code == 200

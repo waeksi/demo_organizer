@@ -12,6 +12,9 @@ const taskList = document.querySelector("#task-list");
 const taskCount = document.querySelector("#task-count");
 const statusFilter = document.querySelector("#status-filter");
 const sortOrder = document.querySelector("#sort-order");
+const themeToggle = document.querySelector("#theme-toggle");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 let editingTaskId = null;
 let editingTaskCompleted = false;
@@ -235,4 +238,39 @@ taskForm.addEventListener("submit", async (event) => {
 cancelEditButton.addEventListener("click", resetForm);
 statusFilter.addEventListener("change", loadTasks);
 sortOrder.addEventListener("change", loadTasks);
+
+function readStoredTheme() {
+  try {
+    return localStorage.getItem("theme");
+  } catch (error) {
+    return null;
+  }
+}
+
+function applyTheme(dark) {
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  themeToggle.setAttribute("aria-checked", String(dark));
+  themeColorMeta.content = dark ? "#111813" : "#f5f6f2";
+}
+
+function initTheme() {
+  const stored = readStoredTheme();
+  applyTheme(stored ? stored === "dark" : darkModeQuery.matches);
+  darkModeQuery.addEventListener("change", (event) => {
+    if (!readStoredTheme()) {
+      applyTheme(event.matches);
+    }
+  });
+  themeToggle.addEventListener("click", () => {
+    const dark = themeToggle.getAttribute("aria-checked") !== "true";
+    applyTheme(dark);
+    try {
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    } catch (error) {
+      // Storage may be unavailable (e.g. privacy mode); the choice still applies for this page.
+    }
+  });
+}
+
+initTheme();
 loadTasks();

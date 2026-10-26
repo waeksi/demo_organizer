@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f6f2">
     <title>Task Organizer</title>
+    <script>
+      (function () {
+        var stored = null;
+        try { stored = localStorage.getItem("theme"); } catch (e) {}
+        var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (dark) document.documentElement.dataset.theme = "dark";
+      })();
+    </script>
     <link rel="stylesheet" href="/static/styles.css">
     <script src="/static/app.js" defer></script>
   </head>
@@ -16,7 +24,14 @@
           <h1>Task organizer</h1>
           <p class="intro">Keep the important things moving.</p>
         </div>
-        <div class="header-mark" aria-hidden="true">✓</div>
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
+            <span class="theme-switch-icon" aria-hidden="true">☀</span>
+            <span class="theme-switch-track" aria-hidden="true"></span>
+            <span class="theme-switch-icon" aria-hidden="true">☾</span>
+          </button>
+          <div class="header-mark" aria-hidden="true">✓</div>
+        </div>
       </header>
 
       <section class="workspace" aria-label="Tasks">
